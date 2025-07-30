@@ -1,0 +1,43 @@
+{
+  "model_info": {
+    "type": "multi_label",
+    "input_shape": [
+      150,
+      150,
+      3
+    ],
+    "num_classes": 3,
+    "class_names": [
+      "Normal",
+      "Pneumonia",
+      "Tuberculosis"
+    ],
+    "activation": "sigmoid",
+    "confidence_threshold": 0.5,
+    "independent_predictions": true
+  },
+  "disease_config": {
+    "normal": {
+      "class_index": 0,
+      "color": "#00FF00",
+      "threshold": 0.5
+    },
+    "pneumonia": {
+      "class_index": 1,
+      "color": "#FFA500",
+      "threshold": 0.5
+    },
+    "tuberculosis": {
+      "class_index": 2,
+      "color": "#FF0000",
+      "threshold": 0.5
+    }
+  },
+  "preprocessing": {
+    "rescale": "1./255",
+    "target_size": [
+      150,
+      150
+    ]
+  }
+}

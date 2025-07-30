@@ -1,0 +1,45 @@
+{
+  "model_info": {
+    "type": "binary_classification",
+    "disease": "Pneumonia",
+    "version": "1.0",
+    "input_shape": [
+      224,
+      224,
+      3
+    ],
+    "num_classes": 2,
+    "class_names": [
+      "Normal",
+      "Pneumonia"
+    ],
+    "activation": "sigmoid",
+    "confidence_threshold": 0.5,
+    "architecture": "VGG16 + Custom Head"
+  },
+  "performance": {
+    "test_accuracy": 0.9883198738098145,
+    "test_precision": 0.9880034327507019,
+    "test_recall": 0.9787775874137878,
+    "test_f1_score": 0.9833688465444398
+  },
+  "preprocessing": {
+    "rescale": "1./255",
+    "target_size": [
+      224,
+      224
+    ],
+    "color_mode": "rgb"
+  },
+  "interpretation": {
+    "class_0": "Normal",
+    "class_1": "Pneumonia",
+    "decision_rule": ">= 0.5 is Disease, < 0.5 is Normal",
+    "output_format": "single_probability_for_disease_class"
+  },
+  "usage": {
+    "framework": "TensorFlow.js",
+    "input_format": "normalized_rgb_image",
+    "output_format": "[normal_probability, disease_probability]"
+  }
+}

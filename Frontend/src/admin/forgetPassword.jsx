@@ -1,0 +1,83 @@
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import SetNewPassword from './setNewPassword.jsx';
+import { BASE_URL } from "../api";
+
+export default function ForgetPassword() {
+    const [code, setCode] = useState("");
+    const [email, setEmail] = useState("");
+    const [flag, setFlag] = useState(0); 
+    const navigate = useNavigate();
+
+    const sendCode = async () => {
+        try {
+            const response = await axios.post(`${BASE_URL}/api/v1/chestguarduser/sendcode`, {
+                email: email 
+            }, { withCredentials: true });
+
+            console.log(response.data.statusCode);  
+
+            if (response.data.statusCode === 200) {
+                setFlag(1);  
+            } else {
+                setFlag(2);
+            }
+        } catch (err) {
+            setFlag(2);
+            console.error("Login error:", err);
+        }
+    };
+
+    const handlerFunction = async () => {  
+        try {
+
+            console.log(email,"===",code)
+            const response2 = await axios.post(`${BASE_URL}/api/v1/chestguarduser/checkOTP`, {
+                email: email,
+                code: code 
+            }, { withCredentials: true });
+            console.log(">>>>",response2.data.statusCode)
+
+            if (response2.data.statusCode == 200) {
+
+                console.log("i am here new flag value is going to 3")
+                
+               setFlag(3)
+            }
+            else if (response2.data.statusCode == 400) {
+                console.log("incorrect otp")
+            }
+        } catch (err) {
+            console.log("incorrect otp")
+            console.error("Login error:", err);
+        }
+    };
+
+    return (
+        <>
+            <label>Email:</label>
+            <input type="text" onChange={(e) => setEmail(e.target.value)} />
+
+            <button onClick={sendCode}>Send Code</button>
+
+            {flag === 1 && <p>Code sent</p>}
+            {flag === 2 && <p>Not sent</p>}
+
+            {flag === 1 && (
+                <>
+                    <label>Enter passcode:</label>
+                    <input
+                        type="text"
+                        onChange={(e) => setCode(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") handlerFunction();
+                        }}
+                    />
+                </>
+            )}
+
+            {flag===3 && (<> <SetNewPassword value={email}/></> )}
+        </>
+    );
+}

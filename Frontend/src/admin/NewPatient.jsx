@@ -3,7 +3,7 @@ import axios from "axios";
 import { BASE_URL } from "../api";
 
 export default function NewPatient() {
-    const [MR_no, setMR_no] = useState("");
+    const [MR_no, setMR_no] = useState("00000");
     const [fullname, setFullname] = useState("");
     const [email, setEmail] = useState("");
     const [Age, setAge] = useState("");
@@ -43,9 +43,12 @@ export default function NewPatient() {
                         <label className="block text-gray-600 font-medium">MR No:</label>
                         <input
                             type="text"
-                            value={MR_no}
-                            onChange={(e) => setMR_no(e.target.value)}
-                            required
+                            onClick={(e)=>{setMR_no((prev)=>{let number =Number(prev) 
+                                number=number+1
+                             return number.toString().padStart(6, '0')})}}
+                             value={MR_no}
+                            
+                            readOnly
                             className="w-full p-2 border border-black text-black rounded-lg focus:ring-2 focus:ring-blue-400"
                         />
                     </div>

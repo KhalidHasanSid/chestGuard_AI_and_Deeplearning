@@ -6,6 +6,7 @@ import { BASE_URL } from '../api';
 function AdminLogin() {
   const [AdminCardNo, setAdminCardNo] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [error,setError]=React.useState();
   const navigate = useNavigate();
 
   const abc = async (e) => {
@@ -32,7 +33,8 @@ function AdminLogin() {
 
       navigate('/dashboard');
     } catch (err) {
-      console.error("Login error:", err);
+      setError(err.response.data.error)
+      console.error("Login error:",err.response.data.error);
     }
   };
 
@@ -45,7 +47,7 @@ function AdminLogin() {
             <label className="block">Admin Card No:</label>
             <input
               onChange={(e) => setAdminCardNo(e.target.value)}
-              type="number"
+              type='text'
               className="w-full p-2 border border-black rounded-lg focus:ring focus:ring-blue-200"
               required
             />
@@ -59,6 +61,7 @@ function AdminLogin() {
               required
             />
           </div>
+         {error&& <p>{error}</p>}
           <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">
             Login
           </button>

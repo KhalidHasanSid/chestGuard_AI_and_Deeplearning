@@ -2,5 +2,4 @@ tensorflow==2.8.0
 flask==2.2.5
 protobuf==3.20.3
 numpy==1.23.5
-Pillow==9.5.0
-gunicorn 
+Pillow==9.5.0 

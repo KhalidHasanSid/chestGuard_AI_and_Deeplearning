@@ -49,7 +49,7 @@ const Detection = () => {
           withCredentials: true
         }
       );
-      console.log("checking---", response.data.data.detection.result);
+      console.log("checking---", response);
       setResult(response.data.data.detection[response.data.data.detection.length - 1].result);
     } catch (error) {
       console.error("Error analyzing X-ray:", error);

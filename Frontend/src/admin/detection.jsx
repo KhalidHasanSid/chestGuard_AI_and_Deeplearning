@@ -131,7 +131,7 @@ const Detection = () => {
         {result && (
           <div className="mt-6 bg-gray-700 p-4 rounded-lg">
             <h2 className="text-lg font-bold text-cyan-400">Analysis Result</h2>
-            <p className="text-white">Consolidation: {result}</p>
+            <p className="text-white">Predicted result: {result}</p>
             <button onClick={(e)=>setEnable((prev)=>{ if(prev===false)
               return true;
               else

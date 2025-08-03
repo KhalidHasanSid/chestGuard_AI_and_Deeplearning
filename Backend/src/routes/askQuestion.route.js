@@ -4,7 +4,7 @@ import auth from "../middlewares/auth.middleware.js";
 
 const askQuestionRouter= Router();
 
-askQuestionRouter.route("/askQuestionFYP").post(auth,askQuestionController) 
+askQuestionRouter.route("/askQuestionFYP").post(auth("patient"),askQuestionController) 
 
 
 askQuestionRouter.route("/getquestions").get(getQuetionsAsked)

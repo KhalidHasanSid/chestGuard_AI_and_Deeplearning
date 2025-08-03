@@ -5,13 +5,14 @@ import User from "../models/user.model.js";
 import AskQuestion from "../models/questions.model.js";
 
 const askQuestionController = asyncHandler(async (req, res, next) => {
+    console.log("=====================;sdvnsdblsbvsnhdboihsfbnsfbldsb kosbns ")
 
   const { age, city, problem, description } = req.body
   console.log(age, "ugyufyutfct", city, "===", problem, "===", description)
 
   if (!age || !city || !problem || !description) { throw new apiError(401, "missing any value") }
 
-  console.log("=====================")
+ 
 
   const user = req.user
 

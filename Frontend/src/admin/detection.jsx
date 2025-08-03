@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Upload, RefreshCw, Loader2 } from "lucide-react";
 import { BASE_URL } from "../api";
-import { NavLink,Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import Result from "../Result";
 
 const Detection = () => {
@@ -12,7 +12,7 @@ const Detection = () => {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState("")
   const [modelType, setModelType] = useState('binary');
-  const [enable, setEnable]=useState(false)
+  const [enable, setEnable] = useState(false)
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -132,13 +132,19 @@ const Detection = () => {
           <div className="mt-6 bg-gray-700 p-4 rounded-lg">
             <h2 className="text-lg font-bold text-cyan-400">Analysis Result</h2>
             <p className="text-white">Predicted result: {result}</p>
-            <button onClick={(e)=>setEnable((prev)=>{ if(prev===false)
-              return true;
-              else
-                return false;
-              })}>see detail</button>
-              {enable && <Link to="/result" state={{ MR_no }}>Go to Result</Link>}
-           
+            <button
+              onClick={(e) =>
+                setEnable((prev) => {
+                  if (prev === false) return true;
+                  else return false;
+                })
+              }
+              className="px-4 py-2 bg-white text-black rounded-md border border-gray-300 hover:bg-blue-500 hover:text-green-500 transition-colors duration-200"
+            >
+              See Detail
+            </button>
+            {enable && <Link to="/result" state={{ MR_no }}>Go to Result</Link>}
+
 
           </div>
         )}

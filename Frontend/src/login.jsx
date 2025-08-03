@@ -34,7 +34,7 @@ function Login() {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md border border-black">
-        <h2 className="text-2xl font-semibold text-black text-center mb-6">Login</h2>
+        <h2 className="text-2xl font-semibold text-black text-center mb-6"> Patient Pannel</h2>
 
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
@@ -72,9 +72,7 @@ function Login() {
             Register
           </Link>
           <span className="mx-2 text-black">|</span> */}
-          <Link to="/forgetpassword" className="text-red-600 hover:underline">
-            Forgot Password?
-          </Link>
+          
         </div>
       </div>
     </div>

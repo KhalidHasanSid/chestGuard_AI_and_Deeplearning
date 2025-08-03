@@ -1,11 +1,17 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { BASE_URL } from "./api";
+import { useLocation } from 'react-router-dom';
 
-export default function Result() {
+
+
+export default function Result(props) {
   const [patientData, setPatientData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  const location = useLocation();
+const MR_no = location.state?.MR_no;
 
   // Define thresholds
   const THRESHOLDS = {
@@ -19,12 +25,11 @@ export default function Result() {
 
     const fetchData = async () => {
       try {
+        console.log("here in get++",props.MR_no)
         const response = await axios.get(
-          `${BASE_URL}/api/v1/chestguardDetection/getDetectedResults`,
+       ` ${BASE_URL}/api/v1/chestguardDetection/getDetectedResults/${MR_no}`,
           {
-            headers: {
-              ...(userToken && { Authorization: `Bearer ${userToken}` })
-            },
+            
             withCredentials: true,
           }
         );

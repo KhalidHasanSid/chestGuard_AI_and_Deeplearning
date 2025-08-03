@@ -35,7 +35,7 @@ function App() {
         <Route path="/" element={<Protected><Layout /></Protected>}>
           <Route path="home" element={<Home />} />
           <Route path="Doctor" element={<Doctor />} />
-          <Route path="result" element={<Result />} />
+          {/* <Route path="result" element={<Result />} /> */}
           <Route path="askQuestion" element={<AskQuestion />} />
           <Route path="faqs" element={<Faqs />} />
           <Route path="articles" element={<Articles />} />
@@ -45,6 +45,7 @@ function App() {
           <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="detection" element={<Detection />} />
           <Route path="newPatient" element={<NewPatient />} />
+           <Route path="result" element={<Result />} />
           <Route path="sendEmail" element={<SendEmail />} />
           <Route path="checkquestion" element={<CheckQuestion />} />
         </Route>

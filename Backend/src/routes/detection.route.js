@@ -7,7 +7,7 @@ const detectionRouter = Router()
 
 detectionRouter.route("/sendImage/:MR_no").post(auth("admin"), upload.single("xrayImage"), detectionController)
 //detectionRouter.route("/getRecords").post(getRecords)
-detectionRouter.route("/getDetectedResults").get(auth("patient"), getDetectedResults)
+detectionRouter.route("/getDetectedResults/:MR_no").get(auth("admin"), getDetectedResults)
 
 
 export default detectionRouter

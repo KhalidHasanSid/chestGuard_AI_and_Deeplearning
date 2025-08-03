@@ -1,6 +1,7 @@
 import asyncHandler from "../utils/asyncHandler.js";
 import apiResponse from "../utils/apiResponse.js";
 import { apiError } from "../utils/apiError.js";
+import mongoose,{Types} from "mongoose";
 import uploadCloudinary from "../utils/cloudinary.js";
 import Detection from "../models/detection.model.js";
 import Patient from "../models/patient.model.js";
@@ -406,6 +407,7 @@ const detectionController = asyncHandler(async (req, res, next) => {
             result: detectionEntry.result,
             modelMode: modelMode
         });
+        console.log(responseData)
 
         res.json(new apiResponse(200, responseData, successMessage));
 
@@ -417,7 +419,14 @@ const detectionController = asyncHandler(async (req, res, next) => {
 
 const getDetectedResults = asyncHandler(async (req, res) => {
     try {
-        const patient = req.user;
+        console.log("=======================================GET RESULT")
+        const MR_no =req.params.MR_no
+        console.log(MR_no, typeof(MR_no))
+
+        const patient = await Patient.findOne({MR_no:MR_no})
+
+        console.log(patient)
+
 
         // Check if patient exists and has ID
         if (!patient?._id) {

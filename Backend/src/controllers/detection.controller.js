@@ -24,10 +24,8 @@ import {
 import {
     makeCombinedBinaryPrediction,
 } from '../services/loadBinaryModels.js';
+import { validateXrayWithThreshold } from "../services/xRAyValidation.js";
 
-// Get current directory for ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 // Simple logging utility
 const logger = {
@@ -227,6 +225,42 @@ const detectionController = asyncHandler(async (req, res, next) => {
         }
 
         logger.info('Image uploaded successfully', { url: image.url });
+
+        logger.info('Validating if uploaded image is an X-ray...');
+        let xrayValidation;
+        
+        try {
+            // Try local file first, then fallback to Cloudinary URL
+            xrayValidation = await validateXrayWithThreshold(
+                xrayImage.path, 
+                image.url, 
+                0.7 // 70% confidence threshold
+            );
+        } catch (validationError) {
+            logger.warn('X-ray validation failed, proceeding without validation...', validationError.message);
+            // You can choose to either continue or throw an error here
+            // For now, we'll continue but log the issue
+            xrayValidation = {
+                passed: null,
+                message: 'X-ray validation could not be performed',
+                error: validationError.message
+            };
+        }
+
+        logger.info('X-ray validation result', xrayValidation);
+
+        // Check if validation failed
+        if (xrayValidation.passed === false) {
+            // Clean up uploaded image from Cloudinary if validation fails
+            // You might want to implement cloudinary deletion here
+            
+            // Clean up local file
+            if (xrayImage.path && fs.existsSync(xrayImage.path)) {
+                fs.unlinkSync(xrayImage.path);
+            }
+
+            throw new apiError(400, `Invalid image: ${xrayValidation.message}`);
+        }
 
         let predictionResult;
         let imageTensor; // Only used for multilabel

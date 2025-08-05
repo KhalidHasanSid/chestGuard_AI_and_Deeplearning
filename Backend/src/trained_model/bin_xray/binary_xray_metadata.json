@@ -1,0 +1,60 @@
+{
+  "model_info": {
+    "name": "X-ray Binary Classifier",
+    "description": "Binary classifier to distinguish X-ray images from non-X-ray images",
+    "type": "binary_classification",
+    "input_shape": [
+      150,
+      150,
+      3
+    ],
+    "num_classes": 2,
+    "class_names": [
+      "Not X-ray",
+      "X-ray"
+    ],
+    "class_indices": {
+      "not_xray": 0,
+      "xray": 1
+    },
+    "activation": "sigmoid",
+    "confidence_threshold": 0.5,
+    "output_range": [
+      0,
+      1
+    ]
+  },
+  "training_info": {
+    "total_epochs": 8,
+    "final_train_accuracy": 0.999890923500061,
+    "final_val_accuracy": 1.0,
+    "final_test_accuracy": 1.0,
+    "early_stopping": true,
+    "patience": 7
+  },
+  "class_config": {
+    "not_xray": {
+      "class_index": 0,
+      "color": "#FF6B6B",
+      "description": "Non-medical images, photos, drawings, etc."
+    },
+    "xray": {
+      "class_index": 1,
+      "color": "#4ECDC4",
+      "description": "Medical X-ray radiographic images"
+    }
+  },
+  "preprocessing": {
+    "rescale": "1./255",
+    "target_size": [
+      150,
+      150
+    ],
+    "color_mode": "rgb"
+  },
+  "usage_instructions": {
+    "input": "RGB image resized to 150x150 pixels, normalized to [0,1]",
+    "output": "Single probability value where >0.5 indicates X-ray",
+    "threshold": "Use 0.5 as default threshold, adjust based on use case"
+  }
+}

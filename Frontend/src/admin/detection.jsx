@@ -56,7 +56,14 @@ const Detection = () => {
       setResult(response.data.data.detection[response.data.data.detection.length - 1].result);
     } catch (error) {
       console.error("Error analyzing X-ray:", error);
+      if(error.response.data.message && error.response.data.message.includes('not an X-ray')){
+      alert("Not an Xray");
+
+      }
+      else{
       alert("An error occurred during analysis.");
+
+      }
     } finally {
       setLoading(false);
     }

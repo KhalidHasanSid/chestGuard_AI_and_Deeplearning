@@ -14,7 +14,8 @@ const allowedOrigins = [
   'https://chestguard.onrender.com',
   'https://chest-guard.vercel.app',
   'https://chestguard-1.onrender.com',
-  'https://chestguard-ai-and-deeplearning.onrender.com'
+  'https://chestguard-ai-and-deeplearning.onrender.com',
+  'https://chestguard-ai-and-deeplearning-1.onrender.com'
 ];
 
 App.use(

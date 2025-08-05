@@ -111,34 +111,36 @@ function Doctor() {
     ];
 
     return (
-        <div className="p-4 bg-gray-100 min-h-screen">
-            <h1 className="text-3xl font-bold text-center text-blue-900 mb-8">Doctor Details</h1>
-            <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        <div className="p-6 bg-gradient-to-br from-blue-100 via-white to-blue-200 min-h-screen">
+            <h1 className="text-4xl font-extrabold text-center text-blue-800 mb-10 drop-shadow-lg">Meet Our Doctors</h1>
+            <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center">
                 {doctors.map((doctor) => (
                     <div
                         key={doctor.id}
-                        className="bg-white shadow-xl rounded-2xl overflow-hidden transform hover:scale-[1.03] hover:shadow-2xl transition duration-300"
+                        className="bg-white shadow-2xl rounded-3xl overflow-hidden transform hover:scale-[1.04] hover:shadow-blue-300 transition duration-300 w-full max-w-xs flex flex-col items-center border border-blue-100"
                     >
-                        <img
-                            src={doctor.image}
-                            alt={doctor.name}
-                            className="w-full h-56 object-cover-auto rounded-t-2xl"
-                        />
-                        <div className="p-5 space-y-2">
-                            <h2 className="text-xl font-bold text-gray-800">{doctor.name}</h2>
+                        <div className="w-full h-48 bg-blue-50 flex items-center justify-center">
+                            <img
+                                src={doctor.image}
+                                alt={doctor.name}
+                                className="w-32 h-32 object-cover rounded-full border-4 border-blue-200 shadow-md mt-4"
+                            />
+                        </div>
+                        <div className="p-6 w-full flex flex-col items-center">
+                            <h2 className="text-lg font-bold text-blue-700 mb-1 text-center">{doctor.name}</h2>
+                            <span className="text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded-full mb-2 font-semibold">{doctor.specialty}</span>
 
                             <button
                                 onClick={() => handleShowNumber(doctor.id)}
-                                className="flex items-center gap-2 text-sm text-white bg-blue-600 px-4 py-2 rounded-full hover:bg-blue-700 transition"
+                                className="flex items-center gap-2 text-sm text-white bg-blue-600 px-4 py-2 rounded-full hover:bg-blue-700 transition shadow-md mb-2"
                             >
                                 📞 {showNumberId === doctor.id ? doctor.contactNumber : "Show Contact"}
                             </button>
 
-                            <div className="text-sm text-gray-700 space-y-1">
-                                <p><span className="font-medium">🏥 Location:</span> {doctor.hospitalLocation}</p>
-                                <p><span className="font-medium">🕒 Timings:</span> {doctor.timings}</p>
-                                <p><span className="font-medium">📅 Day:</span> {doctor.day}</p>
-                                <p><span className="font-medium">🔬 Specialty:</span> {doctor.specialty}</p>
+                            <div className="text-sm text-gray-700 space-y-1 w-full text-left mt-2">
+                                <p><span className="font-medium">🏥 Location:</span> <span className="text-gray-900">{doctor.hospitalLocation}</span></p>
+                                <p><span className="font-medium">🕒 Timings:</span> <span className="text-gray-900">{doctor.timings}</span></p>
+                                <p><span className="font-medium">📅 Day:</span> <span className="text-gray-900">{doctor.day}</span></p>
                             </div>
                         </div>
                     </div>

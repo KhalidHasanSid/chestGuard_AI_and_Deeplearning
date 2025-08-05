@@ -21,15 +21,17 @@ export default function Result(props) {
   };
 
   useEffect(() => {
-    const userToken = localStorage.getItem("Accesstoken");
+    const adminToken = localStorage.getItem("AdminAccesstoken");
 
     const fetchData = async () => {
       try {
         console.log("here in get++", props.MR_no)
         const response = await axios.get(
-          ` ${BASE_URL}/api/v1/chestguardDetection/getDetectedResults/${MR_no}`,
+          `${BASE_URL}/api/v1/chestguardDetection/getDetectedResults/${MR_no}`,
           {
-
+            headers: {
+              Authorization: `Bearer ${adminToken}`,
+            },
             withCredentials: true,
           }
         );

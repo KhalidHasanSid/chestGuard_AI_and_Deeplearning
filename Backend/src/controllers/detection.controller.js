@@ -11,6 +11,7 @@ import { fileURLToPath } from 'url';
 import fs from 'fs';
 import fetch from 'node-fetch';
 import { analyzeXrayWithGemini, extractKeyFindings } from "../services/gemini-service.js";
+import { spawn } from "child_process";
 
 // Import model functions
 import {
@@ -451,6 +452,83 @@ const detectionController = asyncHandler(async (req, res, next) => {
     }
 });
 
+
+         const symtomDetection =asyncHandler(async  (req,res)=>{ const input = req.body;
+
+ const scriptPath = path.join(__dirname, "..", "services", "predict.py");
+
+  const py = spawn("python", [scriptPath, JSON.stringify(input)]);
+
+  let result = "";
+
+  py.stdout.on("data", (data) => {
+    result += data.toString();
+  });
+
+  py.stderr.on("data", (err) => {
+    console.error("Python Error:", err.toString());
+  });
+
+  py.on("close", () => {
+    
+    try {
+      const lines = result.trim().split("\n");
+      const lastLine = lines[lines.length - 1];
+      const [pred, pneuProb, tbProb] = lastLine.split(" ");
+      responsefunction(pred,pneuProb,tbProb)
+
+       
+
+     
+    } catch (err) {
+      console.error("Parse Error:", err);
+      res.status(500).json({
+        prediction: "Error",
+        confidence: {
+          Pneumonia: null,
+          Tuberculosis: null
+        }
+      });
+    }
+  })
+  async function  responsefunction(pred, pneuProb,tbProb ){
+  let id= req.params.id;
+   id= new Types.ObjectId(id);
+   const detection_id = await Detection.findOne({
+                     
+  "detection._id": id               
+});
+console.log(detection_id)
+
+const i = detection_id.detection.findIndex(n => n._id.equals(id))
+
+console.log("========================",i)
+ 
+
+
+  if(i==-1 ) throw new apiError(400, "The user who created this note has deleted it ")
+
+    detection_id.detection[i]. symptomPrediction.push({
+        Prediction:pred === "0" ? "Pneumonia" : "Tuberculosis",
+        pneumoniaConfidenceSymptom:Math.round(parseFloat(pneuProb) * 100),
+        tubercluosisConfidenceSymptom :Math.round(parseFloat(tbProb) * 100)
+    })
+
+   const  ok= await  detection_id.save()
+   if(!ok)  new apiError(400,"bad request")
+
+   res.json({
+        prediction: pred === "0" ? "Pneumonia" : "Tuberculosis",
+        confidence: {
+          Pneumonia: Math.round(parseFloat(pneuProb) * 100),
+          Tuberculosis: Math.round(parseFloat(tbProb) * 100)
+        }
+      });}
+})
+
+ 
+         
+
 const getDetectedResults = asyncHandler(async (req, res) => {
     try {
         console.log("=======================================GET RESULT")
@@ -565,7 +643,9 @@ initializeModel();
 
 export {
     detectionController,
+    symtomDetection,
     getDetectedResults,
+
     authchecker,
     initializeModel,
     gracefulShutdown

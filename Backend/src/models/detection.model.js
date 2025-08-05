@@ -6,6 +6,7 @@ const detectionSchema = new mongoose.Schema({
         ref: 'Patient',
         required: true
     },
+    
     detection: [{
         xray: {
             type: String,
@@ -20,6 +21,13 @@ const detectionSchema = new mongoose.Schema({
             type: Date,
             default: Date.now
         },
+        symptomPrediction:[
+         {Prediction:{ type:String,},
+            
+      pneumoniaConfidenceSymptom:{type:Number},
+     tubercluosisConfidenceSymptom:{type:Number}}]
+
+        ,
         result: {
             type: String,
             required: true,
@@ -34,9 +42,10 @@ const detectionSchema = new mongoose.Schema({
             className: String,
             probability: Number
         }],
+       
 
         // **NEW: Detailed findings from Gemini analysis**
-        detailed_findings: {
+       /* detailed_findings: {
             locations_affected: {
                 upper_right_lobe: {
                     type: String,
@@ -105,8 +114,9 @@ const detectionSchema = new mongoose.Schema({
         error: String,
 
         // Recommendations from Gemini
-        recommendations: [String]
-    }]
+        recommendations: [String]*/
+    }
+        ]
 }, {
     timestamps: true
 });

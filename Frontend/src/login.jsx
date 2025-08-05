@@ -32,48 +32,47 @@ function Login() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md border border-black">
-        <h2 className="text-2xl font-semibold text-black text-center mb-6"> Patient Pannel</h2>
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-blue-100 via-white to-blue-200">
+      <div className="bg-white p-10 rounded-2xl shadow-2xl w-full max-w-md border border-gray-300">
+        <div className="flex flex-col items-center mb-6">
+          <img src="/images/logo.png" alt="Logo" className="w-16 h-16 mb-2" />
+          <h2 className="text-3xl font-bold text-blue-700 mb-1">Patient Panel</h2>
+          <p className="text-gray-500 text-sm">Sign in to continue</p>
+        </div>
 
-        <form onSubmit={handleLogin} className="space-y-4">
+        <form onSubmit={handleLogin} className="space-y-6">
           <div>
-            <label className="block text-black font-medium">MR No:</label>
+            <label className="block text-blue-700 font-semibold mb-1">MR No</label>
             <input
               type="text"
               value={MR_no}
               onChange={(e) => setMR_no(e.target.value)}
-              className="w-full p-2 border border-black rounded-lg text-black"
+              className="w-full p-3 border border-blue-300 rounded-xl text-black focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+              placeholder="Enter your MR No"
               required
             />
           </div>
 
           <div>
-            <label className="block text-black font-medium">Password:</label>
+            <label className="block text-blue-700 font-semibold mb-1">Password</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-2 border border-black rounded-lg text-black"
+              className="w-full p-3 border border-blue-300 rounded-xl text-black focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+              placeholder="Enter your password"
               required
             />
           </div>
 
           <button
             type="submit"
-            className="w-full bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-lg text-white font-medium border border-black"
+            className="w-full bg-blue-600 hover:bg-blue-700 px-4 py-3 rounded-xl text-white font-bold shadow-md transition border border-blue-700"
           >
             Login
           </button>
         </form>
 
-        <div className="mt-4 text-center">
-          {/* <Link to="/registration" className="text-blue-600 hover:underline">
-            Register
-          </Link>
-          <span className="mx-2 text-black">|</span> */}
-          
-        </div>
       </div>
     </div>
   );

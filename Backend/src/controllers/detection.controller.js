@@ -29,7 +29,7 @@ import {
 import {
     makeCombinedBinaryPrediction,
 } from '../services/loadBinaryModels.js';
-import { validateXrayWithThreshold } from "../services/xRAyValidation.js";
+import { validateXrayWithThreshold } from "../services/xrayValidation.js";
 
 
 // Simple logging utility

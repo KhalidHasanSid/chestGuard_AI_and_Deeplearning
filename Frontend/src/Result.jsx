@@ -11,7 +11,7 @@ export default function Result(props) {
   const [error, setError] = useState("");
 
   const location = useLocation();
-const MR_no = location.state?.MR_no;
+  const MR_no = location.state?.MR_no;
 
   // Define thresholds
   const THRESHOLDS = {
@@ -25,11 +25,11 @@ const MR_no = location.state?.MR_no;
 
     const fetchData = async () => {
       try {
-        console.log("here in get++",props.MR_no)
+        console.log("here in get++", props.MR_no)
         const response = await axios.get(
-       ` ${BASE_URL}/api/v1/chestguardDetection/getDetectedResults/${MR_no}`,
+          ` ${BASE_URL}/api/v1/chestguardDetection/getDetectedResults/${MR_no}`,
           {
-            
+
             withCredentials: true,
           }
         );
@@ -313,97 +313,96 @@ const MR_no = location.state?.MR_no;
 
 
 
-                       {/* Symptom-Based Prediction */}
-{detection.symptomPrediction && detection.symptomPrediction[0] && (
-  <div className="bg-purple-50 border border-purple-200 rounded-lg p-4 mb-3">
-    <h4 className="font-medium text-sm text-black mb-3 flex items-center">
-      <svg className="w-4 h-4 text-purple-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-      </svg>
-      Symptom-Based Analysis:
-    </h4>
-    
-    <div className="space-y-3">
-      {/* Main Prediction */}
-      <div className="bg-white rounded-lg p-3 border border-purple-100">
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-sm font-medium text-gray-700">Primary Prediction:</span>
-          <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-            detection.symptomPrediction[0].Prediction?.toLowerCase() === 'normal' 
-              ? 'bg-green-100 text-green-800 border border-green-200'
-              : detection.symptomPrediction[0].Prediction?.toLowerCase() === 'pneumonia'
-              ? 'bg-orange-100 text-orange-800 border border-orange-200'
-              : detection.symptomPrediction[0].Prediction?.toLowerCase() === 'tuberculosis'
-              ? 'bg-red-100 text-red-800 border border-red-200'
-              : 'bg-gray-100 text-gray-800 border border-gray-200'
-          }`}>
-            {detection.symptomPrediction[0].Prediction?.toUpperCase() || 'UNKNOWN'}
-          </span>
-        </div>
-      </div>
+                          {/* Symptom-Based Prediction */}
+                          {detection.symptomPrediction && detection.symptomPrediction[0] && (
+                            <div className="bg-purple-50 border border-purple-200 rounded-lg p-4 mb-3">
+                              <h4 className="font-medium text-sm text-black mb-3 flex items-center">
+                                <svg className="w-4 h-4 text-purple-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                                Symptom-Based Analysis:
+                              </h4>
 
-      {/* Confidence Scores */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-        {/* Pneumonia Confidence */}
-        {detection.symptomPrediction[0].pneumoniaConfidenceSymptom !== undefined && (
-          <div className="bg-white rounded-lg p-3 border border-purple-100">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium text-gray-700">Pneumonia Risk:</span>
-              <span className="text-sm font-bold text-orange-600">
-                {typeof detection.symptomPrediction[0].pneumoniaConfidenceSymptom === 'number' 
-                  ? `${detection.symptomPrediction[0].pneumoniaConfidenceSymptom}%`
-                  : detection.symptomPrediction[0].pneumoniaConfidenceSymptom
-                }
-              </span>
-            </div>
-            {typeof detection.symptomPrediction[0].pneumoniaConfidenceSymptom === 'number' && (
-              <div className="w-full bg-gray-200 rounded-full h-2">
-                <div 
-                  className="bg-orange-500 h-2 rounded-full transition-all duration-300"
-                  style={{ 
-                    width: `${detection.symptomPrediction[0].pneumoniaConfidenceSymptom}%` 
-                  }}
-                ></div>
-              </div>
-            )}
-          </div>
-        )}
+                              <div className="space-y-3">
+                                {/* Main Prediction */}
+                                <div className="bg-white rounded-lg p-3 border border-purple-100">
+                                  <div className="flex items-center justify-between mb-2">
+                                    <span className="text-sm font-medium text-gray-700">Primary Prediction:</span>
+                                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${detection.symptomPrediction[0].Prediction?.toLowerCase() === 'normal'
+                                        ? 'bg-green-100 text-green-800 border border-green-200'
+                                        : detection.symptomPrediction[0].Prediction?.toLowerCase() === 'pneumonia'
+                                          ? 'bg-orange-100 text-orange-800 border border-orange-200'
+                                          : detection.symptomPrediction[0].Prediction?.toLowerCase() === 'tuberculosis'
+                                            ? 'bg-red-100 text-red-800 border border-red-200'
+                                            : 'bg-gray-100 text-gray-800 border border-gray-200'
+                                      }`}>
+                                      {detection.symptomPrediction[0].Prediction?.toUpperCase() || 'UNKNOWN'}
+                                    </span>
+                                  </div>
+                                </div>
 
-        {/* Tuberculosis Confidence */}
-        {detection.symptomPrediction[0].tubercluosisConfidenceSymptom !== undefined && (
-          <div className="bg-white rounded-lg p-3 border border-purple-100">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium text-gray-700">Tuberculosis Risk:</span>
-              <span className="text-sm font-bold text-red-600">
-                {typeof detection.symptomPrediction[0].tubercluosisConfidenceSymptom === 'number' 
-                  ? `${detection.symptomPrediction[0].tubercluosisConfidenceSymptom}%`
-                  : detection.symptomPrediction[0].tubercluosisConfidenceSymptom
-                }
-              </span>
-            </div>
-            {typeof detection.symptomPrediction[0].tubercluosisConfidenceSymptom === 'number' && (
-              <div className="w-full bg-gray-200 rounded-full h-2">
-                <div 
-                  className="bg-red-500 h-2 rounded-full transition-all duration-300"
-                  style={{ 
-                    width: `${detection.symptomPrediction[0].tubercluosisConfidenceSymptom}%` 
-                  }}
-                ></div>
-              </div>
-            )}
-          </div>
-        )}
-      </div>
+                                {/* Confidence Scores */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                  {/* Pneumonia Confidence */}
+                                  {detection.symptomPrediction[0].pneumoniaConfidenceSymptom !== undefined && (
+                                    <div className="bg-white rounded-lg p-3 border border-purple-100">
+                                      <div className="flex items-center justify-between mb-2">
+                                        <span className="text-sm font-medium text-gray-700">Pneumonia Risk:</span>
+                                        <span className="text-sm font-bold text-orange-600">
+                                          {typeof detection.symptomPrediction[0].pneumoniaConfidenceSymptom === 'number'
+                                            ? `${detection.symptomPrediction[0].pneumoniaConfidenceSymptom}%`
+                                            : detection.symptomPrediction[0].pneumoniaConfidenceSymptom
+                                          }
+                                        </span>
+                                      </div>
+                                      {typeof detection.symptomPrediction[0].pneumoniaConfidenceSymptom === 'number' && (
+                                        <div className="w-full bg-gray-200 rounded-full h-2">
+                                          <div
+                                            className="bg-orange-500 h-2 rounded-full transition-all duration-300"
+                                            style={{
+                                              width: `${detection.symptomPrediction[0].pneumoniaConfidenceSymptom}%`
+                                            }}
+                                          ></div>
+                                        </div>
+                                      )}
+                                    </div>
+                                  )}
 
-      {/* Additional Info Note */}
-      <div className="bg-purple-25 border-l-4 border-purple-400 p-2">
-        <p className="text-xs text-purple-700">
-          <span className="font-medium">Note:</span> This analysis is based on reported symptoms and should be considered alongside imaging results.
-        </p>
-      </div>
-    </div>
-  </div>
-)}
+                                  {/* Tuberculosis Confidence */}
+                                  {detection.symptomPrediction[0].tubercluosisConfidenceSymptom !== undefined && (
+                                    <div className="bg-white rounded-lg p-3 border border-purple-100">
+                                      <div className="flex items-center justify-between mb-2">
+                                        <span className="text-sm font-medium text-gray-700">Tuberculosis Risk:</span>
+                                        <span className="text-sm font-bold text-red-600">
+                                          {typeof detection.symptomPrediction[0].tubercluosisConfidenceSymptom === 'number'
+                                            ? `${detection.symptomPrediction[0].tubercluosisConfidenceSymptom}%`
+                                            : detection.symptomPrediction[0].tubercluosisConfidenceSymptom
+                                          }
+                                        </span>
+                                      </div>
+                                      {typeof detection.symptomPrediction[0].tubercluosisConfidenceSymptom === 'number' && (
+                                        <div className="w-full bg-gray-200 rounded-full h-2">
+                                          <div
+                                            className="bg-red-500 h-2 rounded-full transition-all duration-300"
+                                            style={{
+                                              width: `${detection.symptomPrediction[0].tubercluosisConfidenceSymptom}%`
+                                            }}
+                                          ></div>
+                                        </div>
+                                      )}
+                                    </div>
+                                  )}
+                                </div>
+
+                                {/* Additional Info Note */}
+                                <div className="bg-purple-25 border-l-4 border-purple-400 p-2">
+                                  <p className="text-xs text-purple-700">
+                                    <span className="font-medium">Note:</span> This analysis is based on reported symptoms and should be considered alongside imaging results.
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          )}
 
                           {/* Clinical Findings */}
                           {hasDetailedFindings(detection) && (

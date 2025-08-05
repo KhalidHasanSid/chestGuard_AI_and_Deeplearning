@@ -13,7 +13,8 @@ const allowedOrigins = [
   'http://192.168.100.2:4500',        // removed trailing slash
   'https://chestguard.onrender.com',
   'https://chest-guard.vercel.app',
-  'https://chestguard-1.onrender.com'
+  'https://chestguard-1.onrender.com',
+  'https://chestguard-ai-and-deeplearning.onrender.com'
 ];
 
 App.use(

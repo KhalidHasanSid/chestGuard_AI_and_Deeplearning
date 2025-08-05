@@ -7,11 +7,15 @@ import Detection from "../models/detection.model.js";
 import Patient from "../models/patient.model.js";
 import * as tf from '@tensorflow/tfjs-node';
 import path from 'path';
-import { fileURLToPath } from 'url';
 import fs from 'fs';
 import fetch from 'node-fetch';
 import { analyzeXrayWithGemini, extractKeyFindings } from "../services/gemini-service.js";
 import { spawn } from "child_process";
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // Import model functions
 import {

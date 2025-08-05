@@ -17,6 +17,11 @@ const Detection = () => {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
+      const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
+      if (!allowedTypes.includes(file.type)) {
+        alert("Only JPG, JPEG, and PNG files are allowed.");
+        return;
+      }
       setXrayImage(file);
       setImagePreview(URL.createObjectURL(file));
     }
@@ -94,7 +99,7 @@ const Detection = () => {
         <div className="mb-4">
           <label className="bg-blue-600 text-white hover:bg-blue-500 px-4 py-2 rounded-lg cursor-pointer flex items-center gap-2 text-white">
             <Upload size={18} /> Upload X-ray
-            <input type="file" accept="image/*" onChange={handleFileChange} className="hidden" />
+            <input type="file" accept=".jpg,.jpeg,.png" onChange={handleFileChange} className="hidden" />
           </label>
         </div>
 
